@@ -1,6 +1,6 @@
 # Peptide Journal Web
 
-Next.js app for the Peptide Journal entry form.
+Next.js app for Sean and Vanessa's weekly peptide schedule form.
 
 ## Development
 
@@ -9,8 +9,8 @@ npm install
 npm run dev
 ```
 
-Set `NEXT_PUBLIC_API_URL` to the deployed API endpoint, for example:
+Set `NEXT_PUBLIC_API_URL` to the API endpoint, for example:
 
 ```bash
-NEXT_PUBLIC_API_URL=https://peptide-journal-production.up.railway.app/entries/form
+NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/entries/form
 ```
