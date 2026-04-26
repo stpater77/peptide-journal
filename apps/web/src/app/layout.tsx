@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Peptide Journal",
-  description: "Daily peptide protocol journal and check-in form.",
+  title: "Peptide Journal - Weekly Schedule",
+  description: "Sean and Vanessa's weekly peptide schedule.",
 };
 
 export default function RootLayout({
