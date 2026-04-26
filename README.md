@@ -1,9 +1,10 @@
 # Peptide Journal
 
 Peptide Journal is a small two-app project modeled after `stpater77/bobsplumbing-ai`.
+The first workflow is Sean and Vanessa's weekly peptide schedule.
 
 - `apps/api`: Fastify API with Postgres persistence and optional n8n webhook sync
-- `apps/web`: Next.js journal entry form
+- `apps/web`: Next.js weekly schedule form
 
 ## API
 
@@ -19,10 +20,11 @@ Environment variables:
 DATABASE_URL=replace_me
 N8N_WEBHOOK_URL=replace_me
 N8N_WEBHOOK_SECRET=replace_me
-PORT=3000
+PORT=3001
 ```
 
 Apply the database schema in `apps/api/sql/schema.sql` before posting entries.
+Postgres is the source of truth for schedule entries.
 
 Endpoints:
 
@@ -41,7 +43,7 @@ npm run dev
 Environment variable:
 
 ```bash
-NEXT_PUBLIC_API_URL=https://peptide-journal-production.up.railway.app/entries/form
+NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/entries/form
 ```
 
 ## Deploy
