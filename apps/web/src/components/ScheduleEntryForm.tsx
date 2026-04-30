@@ -19,8 +19,8 @@ import {
 } from "@/lib/peptide-journal";
 
 const controlClass =
-  "mt-2 h-11 w-full rounded-lg border border-[#cfd8d3] bg-white px-3 text-[#17211c] outline-none transition focus:border-[#0f766e] focus:ring-2 focus:ring-[#0f766e]/20";
-const labelClass = "block text-sm font-medium text-[#27372f]";
+  "mt-2 h-11 w-full rounded-lg border border-[#d8cab6] bg-[#fffdf8] px-3 text-[#17211c] outline-none transition focus:border-[#c65f18] focus:ring-2 focus:ring-[#c65f18]/20";
+const labelClass = "block text-sm font-medium text-[#284134]";
 
 function defaultDoseUnitFor(peptideName: PeptideName): DoseUnit {
   return (
@@ -112,9 +112,9 @@ export function ScheduleEntryForm() {
   }
 
   return (
-    <section className="rounded-lg border border-[#d9e0dc] bg-white shadow-sm">
-      <div className="border-b border-[#e2e7e2] px-5 py-4">
-        <p className="text-sm font-medium text-[#0f766e]">Weekly Schedule</p>
+    <section className="rounded-lg border border-[#dfd8c6] bg-white shadow-sm">
+      <div className="border-b border-[#ead9bf] bg-[#fff7e8] px-5 py-4">
+        <p className="text-sm font-medium text-[#c65f18]">Weekly Schedule</p>
         <h2 className="mt-1 text-2xl font-semibold text-[#17211c]">
           New Schedule Entry
         </h2>
@@ -235,7 +235,7 @@ export function ScheduleEntryForm() {
         <label className={`${labelClass} mt-5`}>
           Notes
           <textarea
-            className="mt-2 min-h-28 w-full resize-y rounded-lg border border-[#cfd8d3] bg-white px-3 py-2.5 text-[#17211c] outline-none transition focus:border-[#0f766e] focus:ring-2 focus:ring-[#0f766e]/20"
+            className="mt-2 min-h-28 w-full resize-y rounded-lg border border-[#d8cab6] bg-[#fffdf8] px-3 py-2.5 text-[#17211c] outline-none transition focus:border-[#c65f18] focus:ring-2 focus:ring-[#c65f18]/20"
             value={form.notes}
             onChange={(e) => update("notes", e.target.value)}
             placeholder="Optional notes for this scheduled dose."
@@ -246,7 +246,7 @@ export function ScheduleEntryForm() {
           <button
             type="submit"
             disabled={submitting}
-            className="h-11 rounded-lg bg-[#0f766e] px-5 font-medium text-white transition hover:bg-[#0b5f59] disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-11 rounded-lg bg-[#0f766e] px-5 font-medium text-white transition hover:bg-[#c65f18] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? "Saving..." : "Save Entry"}
           </button>

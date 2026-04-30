@@ -107,7 +107,7 @@ export const DASHBOARD_STATS = [
     label: "Tracked Peptides",
     value: String(PEPTIDE_OPTIONS.length),
     detail: "Ready for protocol tuning",
-    accentClass: "border-l-[#7c3aed]",
+    accentClass: "border-l-[#3f8f5b]",
   },
 ] as const;
 
@@ -123,20 +123,5 @@ export const PROTOCOL_GROUPS = [
   {
     title: "Support",
     items: ["NAD+", "Glutathione", "Testosterone"],
-  },
-] as const;
-
-export const BUILD_QUEUE = [
-  {
-    title: "Entry Capture",
-    detail: "Person, date, window, peptide, dose, and notes",
-  },
-  {
-    title: "Automation Payload",
-    detail: "Postgres record plus n8n webhook event",
-  },
-  {
-    title: "Customization Layer",
-    detail: "Protocol defaults, reminders, and recent-entry views",
   },
 ] as const;
