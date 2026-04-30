@@ -42,3 +42,9 @@ create index if not exists weekly_peptide_schedule_day_idx
 
 create index if not exists weekly_peptide_schedule_peptide_idx
   on weekly_peptide_schedule (peptide_name);
+
+create index if not exists weekly_peptide_schedule_date_idx
+  on weekly_peptide_schedule (schedule_date);
+
+create index if not exists weekly_peptide_schedule_created_idx
+  on weekly_peptide_schedule (created_at desc);
