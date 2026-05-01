@@ -66,6 +66,7 @@ export type PeptideName = (typeof PEPTIDE_OPTIONS)[number]["value"];
 export type DoseUnit = (typeof DOSE_UNITS)[number];
 
 export type ScheduleEntryFormState = {
+  customer_name: string;
   person_name: PersonName;
   day_of_week: DayOfWeek;
   time_of_day: TimeOfDay;
@@ -80,6 +81,7 @@ export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3001/entries/form";
 
 export const initialScheduleEntry: ScheduleEntryFormState = {
+  customer_name: "",
   person_name: "Sean",
   day_of_week: "monday",
   time_of_day: "AM",

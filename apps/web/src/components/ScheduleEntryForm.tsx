@@ -185,6 +185,17 @@ export function ScheduleEntryForm() {
           </label>
 
           <label className={labelClass}>
+            Customer name
+            <input
+              className={controlClass}
+              value={form.customer_name}
+              onChange={(e) => update("customer_name", e.target.value)}
+              maxLength={120}
+              required
+            />
+          </label>
+
+          <label className={labelClass}>
             Peptide
             <select
               className={controlClass}

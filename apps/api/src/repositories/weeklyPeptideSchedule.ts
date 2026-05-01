@@ -17,6 +17,7 @@ export async function createScheduleEntry(
       id,
       entry_id,
       person_name,
+      customer_name,
       day_of_week,
       time_of_day,
       schedule_date,
@@ -30,12 +31,13 @@ export async function createScheduleEntry(
     SELECT
       next_entry_id.id,
       'PJ-' || EXTRACT(YEAR FROM now())::text || '-' || LPAD(next_entry_id.id::text, 4, '0'),
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb
     FROM next_entry_id
     RETURNING
       id,
       entry_id,
       person_name,
+      customer_name,
       day_of_week,
       time_of_day,
       schedule_date,
@@ -49,6 +51,7 @@ export async function createScheduleEntry(
     `,
     [
       data.person_name,
+      data.customer_name,
       data.day_of_week,
       data.time_of_day,
       data.schedule_date,

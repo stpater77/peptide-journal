@@ -2,6 +2,7 @@ create table if not exists weekly_peptide_schedule (
   id bigserial primary key,
   entry_id text unique not null,
   person_name text not null check (person_name in ('Sean', 'Vanessa')),
+  customer_name text not null default '',
   day_of_week text not null check (
     day_of_week in (
       'monday',
@@ -33,6 +34,12 @@ create table if not exists weekly_peptide_schedule (
   raw_payload jsonb not null default '{}'::jsonb,
   created_at timestamptz default now()
 );
+
+alter table weekly_peptide_schedule
+  add column if not exists customer_name text not null default '';
+
+create index if not exists weekly_peptide_schedule_customer_idx
+  on weekly_peptide_schedule (customer_name);
 
 create index if not exists weekly_peptide_schedule_person_idx
   on weekly_peptide_schedule (person_name);

@@ -30,6 +30,7 @@ const doseAmount = z.preprocess((value) => {
 
 export const scheduleEntrySchema = z.object({
   person_name: z.enum(PEOPLE),
+  customer_name: z.string().trim().max(120).optional().default(""),
   day_of_week: z.enum(DAYS_OF_WEEK),
   time_of_day: z.enum(TIME_WINDOWS),
   schedule_date: z.string().min(1, "schedule_date is required"),
@@ -47,6 +48,7 @@ export type ScheduleEntryRow = {
   id: number;
   entry_id: string;
   person_name: (typeof PEOPLE)[number];
+  customer_name: string;
   day_of_week: (typeof DAYS_OF_WEEK)[number];
   time_of_day: (typeof TIME_WINDOWS)[number];
   schedule_date: string;
