@@ -13,6 +13,7 @@ export async function createPeptideLogEntry(
     (
       id,
       log_id,
+      client_name,
       peptide_name,
       peptide_name_other,
       sequence,
@@ -38,11 +39,12 @@ export async function createPeptideLogEntry(
     SELECT
       next_log_id.id,
       'PL-' || EXTRACT(YEAR FROM now())::text || '-' || LPAD(next_log_id.id::text, 4, '0'),
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21::jsonb
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22::jsonb
     FROM next_log_id
     RETURNING
       id,
       log_id,
+      client_name,
       peptide_name,
       peptide_name_other,
       sequence,
@@ -68,6 +70,7 @@ export async function createPeptideLogEntry(
       updated_at::text AS updated_at
     `,
     [
+      data.client_name,
       data.peptide_name,
       data.peptide_name_other,
       data.sequence,

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const CLIENT_NAMES = ["Sean", "Vanessa"] as const;
+
 export const LOG_PEPTIDES = [
   "Tirzepatide",
   "NAD+",
@@ -43,6 +45,7 @@ today.setHours(23, 59, 59, 999);
 
 export const peptideLogSchema = z
   .object({
+    client_name: z.enum(CLIENT_NAMES),
     peptide_name: z.enum(LOG_PEPTIDES),
     peptide_name_other: optionalText(50),
     sequence: z
@@ -109,6 +112,7 @@ export type PeptideLogInput = z.infer<typeof peptideLogSchema>;
 export type PeptideLogRow = {
   id: number;
   log_id: string;
+  client_name: (typeof CLIENT_NAMES)[number];
   peptide_name: string;
   peptide_name_other: string;
   sequence: string;

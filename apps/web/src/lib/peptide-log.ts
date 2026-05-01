@@ -1,3 +1,5 @@
+export const CLIENT_NAMES = ["Sean", "Vanessa"] as const;
+
 export const LOG_PEPTIDES = [
   "Tirzepatide",
   "NAD+",
@@ -21,13 +23,25 @@ export const LOG_ROUTES = ["Sub-Q", "IM", "SC", "IV", "Oral", "Other"] as const;
 export const CYCLE_PHASES = ["Start", "Mid", "End", "Off-cycle"] as const;
 export const DOSE_UNITS = ["mcg", "mg"] as const;
 
+export type ClientName = (typeof CLIENT_NAMES)[number];
 export type LogPeptide = (typeof LOG_PEPTIDES)[number];
 export type LogVendor = (typeof LOG_VENDORS)[number];
 export type LogRoute = (typeof LOG_ROUTES)[number];
 export type CyclePhase = (typeof CYCLE_PHASES)[number];
 export type DoseUnit = (typeof DOSE_UNITS)[number];
 
+export const PEPTIDE_SEQUENCE_DEFAULTS: Partial<Record<LogPeptide, string>> = {
+  "Tirzepatide": "YXEGTFTSDYSIXLDKIAQKAFVQWLIAGGPSSGAPPPS",
+  "NAD+": "NAD",
+  GLOW: "GHK",
+  Sermorelin: "YADAIFTNSYRKVLGQLSARKLLQDIMSR",
+  Glutathione: "ECG",
+  Testosterone: "TESTOSTERONE",
+  "BPC-157": "GEPPPGKPADDAGLV",
+};
+
 export type PeptideLogFormState = {
+  client_name: ClientName;
   peptide_name: LogPeptide;
   peptide_name_other: string;
   sequence: string;
@@ -54,6 +68,7 @@ export const PEPTIDE_LOG_API_URL =
   "http://127.0.0.1:3001/peptide-logs/form";
 
 export const initialPeptideLogEntry: PeptideLogFormState = {
+  client_name: "Sean",
   peptide_name: "Tirzepatide",
   peptide_name_other: "",
   sequence: "",

@@ -265,7 +265,7 @@ export function PeptideLogForm() {
                 onChange={(e) => update("sequence", sanitizeSequence(e.target.value))}
                 required
               />
-              <p className={hintClass}>Uppercase amino-acid letters only.</p>
+              <p className={hintClass}>Auto-filled from the peptide dropdown when available. Edit as needed.</p>
             </label>
 
             <label className={labelClass}>

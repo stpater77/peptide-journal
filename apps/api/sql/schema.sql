@@ -53,6 +53,7 @@ create index if not exists weekly_peptide_schedule_created_idx
 create table if not exists peptide_log_entries (
   id bigserial primary key,
   log_id text unique not null,
+  client_name text not null default 'Sean' check (client_name in ('Sean', 'Vanessa')),
   peptide_name text not null,
   peptide_name_other text not null default '',
   sequence text not null check (sequence ~ '^[A-Z]+$'),
@@ -78,6 +79,13 @@ create table if not exists peptide_log_entries (
   updated_at timestamptz not null default now()
 );
 
+alter table peptide_log_entries
+  add column if not exists client_name text not null default 'Sean'
+  check (client_name in ('Sean', 'Vanessa'));
+
+create index if not exists peptide_log_entries_client_idx
+  on peptide_log_entries (client_name);
+
 create index if not exists peptide_log_entries_peptide_idx
   on peptide_log_entries (peptide_name);
 
@@ -86,3 +94,7 @@ create index if not exists peptide_log_entries_admin_date_idx
 
 create index if not exists peptide_log_entries_processed_idx
   on peptide_log_entries (processed);
+
+
+create index if not exists peptide_log_entries_client_idx
+  on peptide_log_entries (client_name);
