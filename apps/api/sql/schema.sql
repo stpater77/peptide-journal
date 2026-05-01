@@ -48,3 +48,41 @@ create index if not exists weekly_peptide_schedule_date_idx
 
 create index if not exists weekly_peptide_schedule_created_idx
   on weekly_peptide_schedule (created_at desc);
+
+
+create table if not exists peptide_log_entries (
+  id bigserial primary key,
+  log_id text unique not null,
+  peptide_name text not null,
+  peptide_name_other text not null default '',
+  sequence text not null check (sequence ~ '^[A-Z]+$'),
+  batch_lot text not null default '',
+  vendor_source text not null default '',
+  vendor_source_other text not null default '',
+  administration_date date not null check (administration_date <= current_date),
+  dosage_amount numeric(12, 4) not null check (dosage_amount > 0),
+  dosage_unit text not null check (dosage_unit in ('mcg', 'mg')),
+  route text not null default '',
+  route_other text not null default '',
+  cycle_phase text not null default '',
+  side_effects text not null default '',
+  notes_observations text not null default '',
+  rating integer not null default 0 check (rating between 0 and 10),
+  attachment_name text not null default '',
+  attachment_type text not null default '',
+  attachment_size integer check (attachment_size is null or attachment_size <= 5242880),
+  draft boolean not null default false,
+  processed boolean not null default false,
+  raw_payload jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists peptide_log_entries_peptide_idx
+  on peptide_log_entries (peptide_name);
+
+create index if not exists peptide_log_entries_admin_date_idx
+  on peptide_log_entries (administration_date desc);
+
+create index if not exists peptide_log_entries_processed_idx
+  on peptide_log_entries (processed);

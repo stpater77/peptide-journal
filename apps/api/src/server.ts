@@ -3,6 +3,7 @@ import cors from "@fastify/cors";
 import { env, hasN8nWebhook } from "./config/env";
 import { pool } from "./db/pool";
 import { registerEntryRoutes } from "./routes/entries";
+import { registerPeptideLogRoutes } from "./routes/peptideLogs";
 
 const app = Fastify({ logger: true });
 
@@ -49,6 +50,7 @@ async function start() {
   });
 
   await registerEntryRoutes(app);
+  await registerPeptideLogRoutes(app);
 
   await app.listen({
     port: env.port,
