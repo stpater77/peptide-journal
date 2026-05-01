@@ -10,10 +10,14 @@ export const LOG_PEPTIDES = [
   "Glutathione",
   "Testosterone",
   "BPC-157",
+  "Botox",
+  "Fillers",
   "Other",
 ] as const;
 
-export const LOG_VENDORS = [
+export const LOG_PROVIDERS = ["Dr. Kays", "Dr. Merino"] as const;
+
+export const LOG_PHARMACIES = [
   "ReviveRx",
   "Hallandale",
   "Empower",
@@ -21,12 +25,13 @@ export const LOG_VENDORS = [
   "HSSRxpartners",
   "Olympia",
   "Old Cutler Pharmacy",
+  "Provider office",
   "Other",
 ] as const;
 
 export const LOG_ROUTES = ["Sub-Q", "IM", "SC", "IV", "Oral", "Other"] as const;
 export const CYCLE_PHASES = ["No-Cycle", "Start", "Mid", "End", "Off-cycle"] as const;
-export const DOSE_UNITS = ["mcg", "mg"] as const;
+export const DOSE_UNITS = ["mcg", "mg", "cc's"] as const;
 
 const optionalText = (max: number) =>
   z.string().trim().max(max).optional().default("");
@@ -56,8 +61,8 @@ export const peptideLogSchema = z
       (value) => !value || /^[A-Za-z0-9._ -]+$/.test(value),
       "batch_lot must be alphanumeric"
     ),
-    vendor_source: z.enum(LOG_VENDORS).optional(),
-    vendor_source_other: optionalText(80),
+    provider: z.enum(LOG_PROVIDERS),
+    pharmacy: z.enum(LOG_PHARMACIES),
     administration_date: z
       .string()
       .min(1, "administration_date is required")
@@ -88,14 +93,6 @@ export const peptideLogSchema = z
       });
     }
 
-    if (data.vendor_source === "Other" && !data.vendor_source_other) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["vendor_source_other"],
-        message: "Enter the vendor when Other is selected.",
-      });
-    }
-
     if (data.route === "Other" && !data.route_other) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -115,8 +112,8 @@ export type PeptideLogRow = {
   peptide_name_other: string;
   sequence: string;
   batch_lot: string;
-  vendor_source: string;
-  vendor_source_other: string;
+  provider: string;
+  pharmacy: string;
   administration_date: string;
   dosage_amount: string;
   dosage_unit: string;

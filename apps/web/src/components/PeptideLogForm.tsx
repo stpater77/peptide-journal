@@ -9,8 +9,9 @@ import {
   CYCLE_PHASES,
   DOSE_UNITS,
   LOG_PEPTIDES,
+  LOG_PHARMACIES,
+  LOG_PROVIDERS,
   LOG_ROUTES,
-  LOG_VENDORS,
   MAX_ATTACHMENT_BYTES,
   PEPTIDE_LOG_API_URL,
   initialPeptideLogEntry,
@@ -18,8 +19,9 @@ import {
   type CyclePhase,
   type DoseUnit,
   type LogPeptide,
+  type LogPharmacy,
+  type LogProvider,
   type LogRoute,
-  type LogVendor,
   type PeptideLogFormState,
 } from "@/lib/peptide-log";
 
@@ -228,6 +230,7 @@ export function PeptideLogForm() {
                 }
                 required
               >
+                <option value="">Select name</option>
                 {CLIENT_NAMES.map((client) => (
                   <option key={client} value={client}>
                     {client}
@@ -246,6 +249,7 @@ export function PeptideLogForm() {
                 }
                 required
               >
+                <option value="">Select peptide</option>
                 {LOG_PEPTIDES.map((peptide) => (
                   <option key={peptide} value={peptide}>
                     {peptide}
@@ -278,35 +282,42 @@ export function PeptideLogForm() {
             </label>
 
             <label className={labelClass}>
-              Vendor / Source
+              Provider
               <select
                 className={controlClass}
-                value={form.vendor_source}
+                value={form.provider}
                 onChange={(e) =>
-                  update("vendor_source", e.target.value as LogVendor | "")
+                  update("provider", e.target.value as LogProvider | "")
                 }
+                required
               >
-                <option value="">Select vendor</option>
-                {LOG_VENDORS.map((vendor) => (
-                  <option key={vendor} value={vendor}>
-                    {vendor}
+                <option value="">Select provider</option>
+                {LOG_PROVIDERS.map((provider) => (
+                  <option key={provider} value={provider}>
+                    {provider}
                   </option>
                 ))}
               </select>
             </label>
 
-            {form.vendor_source === "Other" && (
-              <label className={labelClass}>
-                Other vendor
-                <input
-                  className={controlClass}
-                  maxLength={80}
-                  value={form.vendor_source_other}
-                  onChange={(e) => update("vendor_source_other", e.target.value)}
-                  required
-                />
-              </label>
-            )}
+            <label className={labelClass}>
+              Pharmacy
+              <select
+                className={controlClass}
+                value={form.pharmacy}
+                onChange={(e) =>
+                  update("pharmacy", e.target.value as LogPharmacy | "")
+                }
+                required
+              >
+                <option value="">Select pharmacy</option>
+                {LOG_PHARMACIES.map((pharmacy) => (
+                  <option key={pharmacy} value={pharmacy}>
+                    {pharmacy}
+                  </option>
+                ))}
+              </select>
+            </label>
 
             <label className={labelClass}>
               Administration date

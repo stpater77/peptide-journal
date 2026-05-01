@@ -65,11 +65,11 @@ create table if not exists peptide_log_entries (
   peptide_name_other text not null default '',
   sequence text not null default '',
   batch_lot text not null default '',
-  vendor_source text not null default '',
-  vendor_source_other text not null default '',
+  provider text not null default '',
+  pharmacy text not null default '',
   administration_date date not null check (administration_date <= current_date),
   dosage_amount numeric(12, 4) not null check (dosage_amount > 0),
-  dosage_unit text not null check (dosage_unit in ('mcg', 'mg')),
+  dosage_unit text not null check (dosage_unit in ('mcg', 'mg', 'cc''s')),
   route text not null default '',
   route_other text not null default '',
   cycle_phase text not null default '',
@@ -94,11 +94,36 @@ alter table peptide_log_entries
   alter column sequence drop not null;
 
 alter table peptide_log_entries
+  add column if not exists provider text not null default '',
+  add column if not exists pharmacy text not null default '';
+
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'peptide_log_entries'
+      and column_name = 'vendor_source'
+  ) then
+    execute 'update peptide_log_entries set pharmacy = vendor_source where pharmacy = ''''';
+  end if;
+end $$;
+
+alter table peptide_log_entries
+  drop column if exists vendor_source,
+  drop column if exists vendor_source_other;
+
+alter table peptide_log_entries
+  drop constraint if exists peptide_log_entries_dosage_unit_check;
+
+alter table peptide_log_entries
+  add constraint peptide_log_entries_dosage_unit_check
+  check (dosage_unit in ('mcg', 'mg', 'cc''s'));
+
+alter table peptide_log_entries
   add column if not exists client_name text not null default 'Sean'
   check (client_name in ('Sean', 'Vanessa'));
-
-create index if not exists peptide_log_entries_client_idx
-  on peptide_log_entries (client_name);
 
 create index if not exists peptide_log_entries_peptide_idx
   on peptide_log_entries (peptide_name);
