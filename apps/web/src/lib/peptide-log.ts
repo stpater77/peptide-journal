@@ -16,6 +16,8 @@ export const LOG_VENDORS = [
   "Hallandale",
   "Empower",
   "Precision",
+  "HSSRxpartners",
+  "Olympia",
   "Other",
 ] as const;
 
@@ -30,21 +32,11 @@ export type LogRoute = (typeof LOG_ROUTES)[number];
 export type CyclePhase = (typeof CYCLE_PHASES)[number];
 export type DoseUnit = (typeof DOSE_UNITS)[number];
 
-export const PEPTIDE_SEQUENCE_DEFAULTS: Partial<Record<LogPeptide, string>> = {
-  "Tirzepatide": "YXEGTFTSDYSIXLDKIAQKAFVQWLIAGGPSSGAPPPS",
-  "NAD+": "NAD",
-  GLOW: "GHK",
-  Sermorelin: "YADAIFTNSYRKVLGQLSARKLLQDIMSR",
-  Glutathione: "ECG",
-  Testosterone: "TESTOSTERONE",
-  "BPC-157": "GEPPPGKPADDAGLV",
-};
 
 export type PeptideLogFormState = {
   client_name: ClientName;
   peptide_name: LogPeptide;
   peptide_name_other: string;
-  sequence: string;
   batch_lot: string;
   vendor_source: LogVendor | "";
   vendor_source_other: string;
@@ -71,7 +63,6 @@ export const initialPeptideLogEntry: PeptideLogFormState = {
   client_name: "Sean",
   peptide_name: "Tirzepatide",
   peptide_name_other: "",
-  sequence: "",
   batch_lot: "",
   vendor_source: "",
   vendor_source_other: "",

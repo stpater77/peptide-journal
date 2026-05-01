@@ -5,6 +5,7 @@ import type { ChangeEvent, FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import {
   ATTACHMENT_TYPES,
+  CLIENT_NAMES,
   CYCLE_PHASES,
   DOSE_UNITS,
   LOG_PEPTIDES,
@@ -13,6 +14,7 @@ import {
   MAX_ATTACHMENT_BYTES,
   PEPTIDE_LOG_API_URL,
   initialPeptideLogEntry,
+  type ClientName,
   type CyclePhase,
   type DoseUnit,
   type LogPeptide,
@@ -33,9 +35,6 @@ function todayIso() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function sanitizeSequence(value: string) {
-  return value.toUpperCase().replace(/[^A-Z]/g, "");
-}
 
 export function PeptideLogForm() {
   const [form, setForm] =
@@ -119,12 +118,6 @@ export function PeptideLogForm() {
     if (form.administration_date > maxDate) {
       setSubmitting(false);
       setError("Administration date cannot be in the future.");
-      return;
-    }
-
-    if (!/^[A-Z]+$/.test(form.sequence)) {
-      setSubmitting(false);
-      setError("Sequence must contain uppercase letters only.");
       return;
     }
 
@@ -226,6 +219,24 @@ export function PeptideLogForm() {
 
           <div className="grid gap-5 p-5 md:grid-cols-2">
             <label className={labelClass}>
+              Client name
+              <select
+                className={controlClass}
+                value={form.client_name}
+                onChange={(e) =>
+                  update("client_name", e.target.value as ClientName)
+                }
+                required
+              >
+                {CLIENT_NAMES.map((client) => (
+                  <option key={client} value={client}>
+                    {client}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className={labelClass}>
               Peptide name
               <select
                 className={controlClass}
@@ -255,18 +266,6 @@ export function PeptideLogForm() {
                 />
               </label>
             )}
-
-            <label className={`${labelClass} md:col-span-2`}>
-              Sequence
-              <textarea
-                className={`${textAreaClass} font-mono uppercase tracking-normal`}
-                maxLength={2000}
-                value={form.sequence}
-                onChange={(e) => update("sequence", sanitizeSequence(e.target.value))}
-                required
-              />
-              <p className={hintClass}>Auto-filled from the peptide dropdown when available. Edit as needed.</p>
-            </label>
 
             <label className={labelClass}>
               Batch / Lot #

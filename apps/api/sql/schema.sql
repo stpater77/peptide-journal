@@ -63,7 +63,7 @@ create table if not exists peptide_log_entries (
   client_name text not null default 'Sean' check (client_name in ('Sean', 'Vanessa')),
   peptide_name text not null,
   peptide_name_other text not null default '',
-  sequence text not null check (sequence ~ '^[A-Z]+$'),
+  sequence text not null default '',
   batch_lot text not null default '',
   vendor_source text not null default '',
   vendor_source_other text not null default '',
@@ -85,6 +85,13 @@ create table if not exists peptide_log_entries (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table peptide_log_entries
+  drop constraint if exists peptide_log_entries_sequence_check;
+
+alter table peptide_log_entries
+  alter column sequence set default '',
+  alter column sequence drop not null;
 
 alter table peptide_log_entries
   add column if not exists client_name text not null default 'Sean'

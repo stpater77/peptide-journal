@@ -18,6 +18,8 @@ export const LOG_VENDORS = [
   "Hallandale",
   "Empower",
   "Precision",
+  "HSSRxpartners",
+  "Olympia",
   "Other",
 ] as const;
 
@@ -48,12 +50,7 @@ export const peptideLogSchema = z
     client_name: z.enum(CLIENT_NAMES),
     peptide_name: z.enum(LOG_PEPTIDES),
     peptide_name_other: optionalText(50),
-    sequence: z
-      .string()
-      .trim()
-      .min(1, "sequence is required")
-      .max(2000)
-      .regex(/^[A-Z]+$/, "sequence must contain uppercase letters only"),
+    sequence: z.string().trim().max(2000).optional().default(""),
     batch_lot: optionalText(80).refine(
       (value) => !value || /^[A-Za-z0-9._ -]+$/.test(value),
       "batch_lot must be alphanumeric"
