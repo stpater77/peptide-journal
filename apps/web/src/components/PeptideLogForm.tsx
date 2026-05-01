@@ -383,7 +383,7 @@ export function PeptideLogForm() {
               <legend className="text-sm font-medium text-[#284134]">
                 Cycle phase
               </legend>
-              <div className="mt-2 grid gap-2 sm:grid-cols-4">
+              <div className="mt-2 grid gap-2 sm:grid-cols-5">
                 {CYCLE_PHASES.map((phase) => (
                   <label
                     key={phase}

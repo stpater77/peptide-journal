@@ -18,11 +18,12 @@ export const LOG_VENDORS = [
   "Precision",
   "HSSRxpartners",
   "Olympia",
+  "Old Cutler Pharmacy",
   "Other",
 ] as const;
 
 export const LOG_ROUTES = ["Sub-Q", "IM", "SC", "IV", "Oral", "Other"] as const;
-export const CYCLE_PHASES = ["Start", "Mid", "End", "Off-cycle"] as const;
+export const CYCLE_PHASES = ["No-Cycle", "Start", "Mid", "End", "Off-cycle"] as const;
 export const DOSE_UNITS = ["mcg", "mg"] as const;
 
 export type ClientName = (typeof CLIENT_NAMES)[number];
